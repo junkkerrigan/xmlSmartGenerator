@@ -5,7 +5,12 @@ A free service to generate XML sample files for testing or whatever.
 
 ## Installation
 
-*To be populated*
+Run 
+```
+yarn install  
+yarn start
+```
+to install all dependencies and run local development host. 
 
 ## Authors
 
