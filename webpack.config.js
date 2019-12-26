@@ -36,6 +36,9 @@ module.exports = {
 			},
 		]
 	},
+	devServer: {
+
+	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
