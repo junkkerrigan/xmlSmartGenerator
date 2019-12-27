@@ -6,6 +6,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, '/dist'),
 		filename: 'bundle.js',
+		publicPath: '/',
 	},
 	resolve: {
 		extensions: [ '.ts', '.tsx', '.js', '.jsx' ],
@@ -17,7 +18,6 @@ module.exports = {
 				exclude: /node_modules/,
 				loader: 'babel-loader',
 			},
-
 			{
 				test: /\.css$/,
 				use: [
@@ -25,19 +25,27 @@ module.exports = {
 					'css-loader',
 				],
 			},
-
 			{
 				test: /\.s[ac]ss$/i,
 				use: [
 					'style-loader',
 					'css-loader',
-					'sass-loader',
+					{
+						loader: 'sass-loader',
+						options: {
+							sassOptions: {
+								includePaths: [  ]
+							},
+							sourceMap: true
+						},
+					}
 				],
 			},
 		]
 	},
+	devtool: 'eval-source-map',
 	devServer: {
-
+		historyApiFallback: true
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
