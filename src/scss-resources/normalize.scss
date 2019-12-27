@@ -1,0 +1,17 @@
+h1, h2, h3, h4, h5, h6, li, ol, ul, p, a {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  &, &:hover, &:active, &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+
