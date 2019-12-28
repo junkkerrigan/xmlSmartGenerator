@@ -13,10 +13,21 @@
   }
 
   &-title {
+    @media (max-width: $_max_md) {
+      @include text(700, 40, white);
+      line-height: 40px;
+      margin-bottom: 20px;
+    }
+
     @include text(700, 60, white);
   }
 
   &-subtitle {
+    @media (max-width: $_max_md) {
+      @include text(500, 20, black);
+      line-height: 20px;
+    }
+
     @include text(500, 30, black);
   }
 }
