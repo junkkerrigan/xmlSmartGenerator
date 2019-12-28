@@ -29,16 +29,25 @@ module.exports = {
 				test: /\.s[ac]ss$/i,
 				use: [
 					'style-loader',
-					'css-loader',
+					{
+						loader: 'css-loader',
+						options: {
+							sourceMap: true
+						},
+					},
 					{
 						loader: 'sass-loader',
 						options: {
-							sassOptions: {
-								includePaths: [  ]
-							},
 							sourceMap: true
 						},
-					}
+					},
+					{
+						loader: 'sass-resources-loader',
+						options: {
+							sourceMap: true,
+							resources: path.resolve(__dirname, './src/scss-resources/resources.scss')
+						},
+					},
 				],
 			},
 		]

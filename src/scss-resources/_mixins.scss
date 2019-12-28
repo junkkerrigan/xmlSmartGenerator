@@ -1,0 +1,8 @@
+@mixin font($weight, $size) {
+  font: $weight #{$size}px 'Roboto Slab', sans-serif;
+}
+
+@mixin text($weight, $size, $color) {
+  @include font($weight, $size);
+  color: $color;
+}
