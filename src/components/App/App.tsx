@@ -1,17 +1,19 @@
 import React, { FC } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Container } from "reactstrap";
 import { MainHeader } from '../MainHeader';
-
+import { Generator } from "../Generator";
 import { AppProps } from './types';
 
 export const App: FC<AppProps> = () => {
 	return (
-		<Router>
+		<>
 			<MainHeader />
-			<Switch>
-
-			</Switch>
-		</Router>
+			<div className='generator-wrapper'>
+				<Container>
+					<Generator />
+				</Container>
+			</div>
+		</>
 	);
 };
 

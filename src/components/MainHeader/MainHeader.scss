@@ -1,8 +1,11 @@
 .main {
   &-header {
     width: 100%;
-    padding: 30px 0;
+    height: 160px;
+    padding: 20px 0;
     background: linear-gradient(45deg,#4d9abf,#00c7b7);
+    position: fixed;
+    top: 0;
 
     .container {
       display: flex;
