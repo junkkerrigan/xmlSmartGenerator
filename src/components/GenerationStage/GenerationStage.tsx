@@ -1,17 +1,23 @@
 import React, { FC, useContext } from "react";
-import { CarouselItem } from "reactstrap";
+import { Slide } from "pure-react-carousel";
 import { GeneratorContext } from "../../contexts";
+import { ControlButtonsPanel } from "./ControlButtonsPanel";
 
-export const GenerationStage: FC = ({ children }) => {
+import { GenerationStageProps } from './types';
+
+export const GenerationStage: FC<GenerationStageProps> = (props: GenerationStageProps) => {
 	const { setIsTransition } = useContext(GeneratorContext);
-
+	const { children, index, type, ...otherProps } = props;
 	return (
-		<CarouselItem
-			onExiting={() => setIsTransition(true)}
-			onExited={() => setIsTransition(false)}
-			key={}
+		<Slide
+			index={index}
 		>
-
-		</CarouselItem>
+			{children}
+			<ControlButtonsPanel
+				prev={type !== 'final'}
+				next={type === 'regular'}
+				generate={type === 'final'}
+			/>
+		</Slide>
 	);
 };

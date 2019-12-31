@@ -1,55 +1,46 @@
-import React, {ReactElement, ReactNode, useState} from "react";
-import { Carousel } from "reactstrap";
-import { GeneratorContext, GeneratorContextProvider } from "../../contexts";
+import React, { useState } from "react";
+import { CarouselProvider, Slider } from 'pure-react-carousel'
+import { GeneratorContextProvider, GeneratorContext } from "../../contexts";
+import { GenerationStage } from "../GenerationStage";
+import { useUIDSeed } from "react-uid";
 
-import { GeneratorProps, IGenerator } from './types';
+import { GeneratorProps } from './types';
 
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import './Generator.scss';
 
 export const Generator: React.FC<GeneratorProps> = () => {
-	const defaultGenerator: IGenerator = {
-		currentSlide: 0,
-		isTransition: false,
-		slidesNum: 1,
-	};
-	const [ generatorState, setGeneratorState ] =
-		useState<IGenerator>(defaultGenerator);
-
-	const next = () => {
-		const { slidesNum, isTransition, currentSlide } = generatorState;
-
-		if (isTransition) return;
-		const nextSlide =
-			(currentSlide === slidesNum - 1)
-			? 0
-			: currentSlide + 1;
-		setGeneratorState({
-			...generatorState,
-			currentSlide: nextSlide,
-		});
-	};
-
-	const prev = () => {
-		const { slidesNum, isTransition, currentSlide } = generatorState;
-
-		if (isTransition) return;
-		const prevSlide =
-			(currentSlide === 0)
-				? slidesNum - 1
-				: currentSlide - 1;
-		setGeneratorState({
-			...generatorState,
-			currentSlide: prevSlide,
-		});
-	};
+	const [ currentSlide, setCurrentSlide ] = useState<number>(0);
+	const seed = useUIDSeed();
 
 	return (
 		<GeneratorContextProvider>
-			<Carousel
-				next={next}
-				previous={prev}
+			<CarouselProvider
+				naturalSlideWidth={100}
+				naturalSlideHeight={125}
+				totalSlides={3}
 			>
-			</Carousel>
+				<Slider>
+					<GenerationStage
+						index={0}
+						type='first'
+					>
+					First here!
+					</GenerationStage>
+					<GenerationStage
+						index={1}
+						type='regular'
+					>
+						Well, second:)
+					</GenerationStage>
+					<GenerationStage
+						index={2}
+						type='final'
+					>
+						Third... here:(
+					</GenerationStage>
+				</Slider>
+			</CarouselProvider>
 		</GeneratorContextProvider>
 	);
 };

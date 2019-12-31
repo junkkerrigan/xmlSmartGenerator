@@ -17,20 +17,20 @@
 
   &-title {
     @media (max-width: $_max_md) {
-      @include text(700, 40, white);
+      @include text(700, 40px, white);
       line-height: 40px;
       margin-bottom: 20px;
     }
 
-    @include text(700, 60, white);
+    @include text(700, 60px, white);
   }
 
   &-subtitle {
     @media (max-width: $_max_md) {
-      @include text(500, 20, black);
+      @include text(500, 20px, black);
       line-height: 20px;
     }
 
-    @include text(500, 30, black);
+    @include text(500, 30px, black);
   }
 }
