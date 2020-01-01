@@ -1,29 +1,27 @@
 import React, { FC, ReactElement } from "react";
 import { ButtonBack, ButtonNext } from "pure-react-carousel";
-import { FaCheckCircle, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdCheck } from "react-icons/all";
 import { ControlButtonProps, ControlButtonsPanelProps } from "./types";
 
 const ControlButton: FC<ControlButtonProps> = ({ type }: ControlButtonProps) => {
 	let btn: ReactElement;
+	const style: object = {
+		color: 'white',
+		fontSize: 25,
+	};
+
 	if (type === 'generate') {
 		btn = (
-			<button className='carousel-control-btn'>
+			<button className='carousel-control-btn generate-btn'>
 				Generate
-				<FaCheckCircle
-					color='white'
-					fontSize='40px'
-				/>
+				<MdCheck {...style} />
 			</button>
 		);
-	} else if (type === 'next') {
+	} else if (type === 'prev') {
 		btn = (
 			<ButtonBack className='carousel-control-btn'>
 				<>
-					<FaAngleLeft
-						color='white'
-						fontSize='40px'
-					/>
+					<MdKeyboardArrowLeft {...style} />
 					Prev
 				</>
 			</ButtonBack>
@@ -33,10 +31,7 @@ const ControlButton: FC<ControlButtonProps> = ({ type }: ControlButtonProps) => 
 			<ButtonNext className='carousel-control-btn'>
 				<>
 					Next
-					<FaAngleRight
-						color='white'
-						fontSize='40px'
-					/>
+					<MdKeyboardArrowRight {...style} />
 				</>
 			</ButtonNext>
 		);
@@ -48,10 +43,10 @@ const ControlButton: FC<ControlButtonProps> = ({ type }: ControlButtonProps) => 
 export const ControlButtonsPanel: FC<ControlButtonsPanelProps> = (props: ControlButtonsPanelProps) => {
 	const { generate, next, prev } = props;
 	return (
-		<div>
-			{generate && <ControlButton type='generate' />}
+		<div className='carousel-control-panel'>
 			{prev && <ControlButton type='prev' />}
 			{next && <ControlButton type='next' />}
+			{generate && <ControlButton type='generate' />}
 		</div>
 	);
 };

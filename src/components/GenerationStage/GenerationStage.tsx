@@ -14,8 +14,8 @@ export const GenerationStage: FC<GenerationStageProps> = (props: GenerationStage
 		>
 			{children}
 			<ControlButtonsPanel
-				prev={type !== 'final'}
-				next={type === 'regular'}
+				prev={type !== 'first'}
+				next={type !== 'final'}
 				generate={type === 'final'}
 			/>
 		</Slide>
