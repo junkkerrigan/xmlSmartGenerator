@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { CarouselProvider, Slider } from 'pure-react-carousel'
-import { GeneratorContextProvider, GeneratorContext } from "../../contexts";
-import { GenerationStage } from "../GenerationStage";
+import { GenerationStage, GenerationStageCaption,
+	GenerationOptionRadio, GenerationPattern } from "../GenerationStage";
 import { useUIDSeed } from "react-uid";
 
 import { GeneratorProps } from './types';
 
-import 'pure-react-carousel/dist/react-carousel.es.css';
 import './Generator.scss';
 
 export const Generator: React.FC<GeneratorProps> = () => {
@@ -14,33 +13,49 @@ export const Generator: React.FC<GeneratorProps> = () => {
 	const seed = useUIDSeed();
 
 	return (
-		<GeneratorContextProvider>
-			<CarouselProvider
-				naturalSlideWidth={100}
-				naturalSlideHeight={125}
-				totalSlides={3}
-			>
-				<Slider>
-					<GenerationStage
-						index={0}
-						type='first'
+		<CarouselProvider
+			naturalSlideWidth={100}
+			naturalSlideHeight={125}
+			totalSlides={3}
+			dragEnabled={false}
+		>
+			<Slider>
+				<GenerationStage
+					index={0}
+					type='first'
+				>
+					<GenerationStageCaption>
+						Choose source for your XML
+					</GenerationStageCaption>
+					<GenerationOptionRadio
+						name='source'
+						value='random'
 					>
-					First here!
-					</GenerationStage>
-					<GenerationStage
-						index={1}
-						type='regular'
+						Generate random document
+					</GenerationOptionRadio>
+					<GenerationOptionRadio
+						name='source'
+						value='pattern'
 					>
-						Well, second:)
-					</GenerationStage>
-					<GenerationStage
-						index={2}
-						type='final'
-					>
-						Third... here:(
-					</GenerationStage>
-				</Slider>
-			</CarouselProvider>
-		</GeneratorContextProvider>
+						Specify the pattern
+					</GenerationOptionRadio>
+				</GenerationStage>
+				<GenerationStage
+					index={1}
+					type='regular'
+				>
+					<GenerationStageCaption>
+						Provide the pattern for your document
+					</GenerationStageCaption>
+					<GenerationPattern />
+				</GenerationStage>
+				<GenerationStage
+					index={2}
+					type='final'
+				>
+					Third... here:(
+				</GenerationStage>
+			</Slider>
+		</CarouselProvider>
 	);
 };

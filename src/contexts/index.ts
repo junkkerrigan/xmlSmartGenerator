@@ -1,1 +1,1 @@
-export * from './GeneratorContext';
+export * from './GenerationStageContext';

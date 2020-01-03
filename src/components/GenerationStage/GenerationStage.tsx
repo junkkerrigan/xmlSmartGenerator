@@ -1,23 +1,28 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import { Slide } from "pure-react-carousel";
-import { GeneratorContext } from "../../contexts";
-import { ControlButtonsPanel } from "./ControlButtonsPanel";
+import { ControlButtonsPanel } from "./components";
 
+import { GenerationStageContext } from "../../contexts";
 import { GenerationStageProps } from './types';
 
+import 'pure-react-carousel/dist/react-carousel.es.css';
+import './GenerationStage.scss';
+
 export const GenerationStage: FC<GenerationStageProps> = (props: GenerationStageProps) => {
-	const { setIsTransition } = useContext(GeneratorContext);
-	const { children, index, type, ...otherProps } = props;
+	const { children, index, type } = props;
 	return (
-		<Slide
-			index={index}
-		>
-			{children}
-			<ControlButtonsPanel
-				prev={type !== 'first'}
-				next={type !== 'final'}
-				generate={type === 'final'}
-			/>
-		</Slide>
+		<GenerationStageContext.Provider value={index}>
+			<Slide
+				index={index}
+				innerClassName='disable-outline'
+			>
+				{children}
+				<ControlButtonsPanel
+					prev={type !== 'first'}
+					next={type !== 'final'}
+					generate={type === 'final'}
+				/>
+			</Slide>
+		</GenerationStageContext.Provider>
 	);
 };

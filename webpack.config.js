@@ -17,12 +17,20 @@ module.exports = {
 				test: /\.(ts|js)x?$/,
 				exclude: /node_modules/,
 				loader: 'babel-loader',
+				options: {
+					sourceMap: true
+				},
 			},
 			{
 				test: /\.css$/,
 				use: [
 					'style-loader',
-					'css-loader',
+					{
+						loader: 'css-loader',
+						options: {
+							sourceMap: true,
+						},
+					},
 				],
 			},
 			{
@@ -45,7 +53,7 @@ module.exports = {
 						loader: 'sass-resources-loader',
 						options: {
 							sourceMap: true,
-							resources: path.resolve(__dirname, './src/scss-resources/resources.scss')
+							resources: path.resolve(__dirname, './src/styles-resources/resources.scss')
 						},
 					},
 				],
