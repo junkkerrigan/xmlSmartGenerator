@@ -1,20 +1,20 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
-import { GenerationOptionProps } from "./types";
+import { GenerationOptionProps } from './types';
 
 import '../../../styles-resources/radio-input.css';
 
 export const GenerationOptionRadio: FC<GenerationOptionProps> = (props: GenerationOptionProps) => {
 	const { name, value, children } = props;
 	return (
-		<label className="generation-option">
+		<label className='generation-option'>
 			<input
-				type="radio"
+				type='radio'
 				name={name}
 				value={value}
-				className="hidden"
+				className='hidden'
 			/>
-			<span className="generation-option-text" />
+			<span className='generation-option-button' />
 			{children}
 		</label>
 	);

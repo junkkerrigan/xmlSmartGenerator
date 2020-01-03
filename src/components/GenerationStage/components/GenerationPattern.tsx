@@ -13,6 +13,7 @@ export const GenerationPattern: FC = () => {
 			<textarea
 				className='generation-pattern-input'
 				value={inputValue}
+				spellCheck={false}
 				onChange={handleInputChange}
 			/>
 		</div>

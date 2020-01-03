@@ -48,25 +48,30 @@
   .generation {
     &-stage-caption {
       @include text(500, 24px, white);
-      margin: 70px 0 50px 80px;
+      margin: 60px 0 0 80px;
     }
 
     &-option {
       @include text(500, '25px/20px', white);
       margin: 0 0 30px 100px;
+
+      &:first-of-type {
+        margin-top: 50px;
+      }
     }
 
     &-pattern {
       background: white;
       border-radius: 5px;
-      padding: 3px;
+      padding: 10px;
+      margin: 10px auto 0;
 
       &-input {
-        @include size(300px, 200px);
+        @include size(380px, 200px);
         background: white;
         border: none;
-        color: black;
         resize: unset;
+        @include text(500, 18px, $_dark_gray);
       }
     }
   }
