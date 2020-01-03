@@ -10,10 +10,17 @@ export interface ControlButtonProps {
 	type: 'next' | 'prev' | 'generate',
 }
 
-export interface GenerationOptionProps {
-	name: string,
+interface GenerationOptionProps {
+	checked?: boolean,
 	value: string,
 	children: ReactNode,
+}
+
+export interface GenerationRadioOptionProps extends GenerationOptionProps {
+	name: string,
+}
+
+export interface GenerationCheckOptionProps extends GenerationOptionProps {
 }
 
 export interface GenerationStageCaptionProps {

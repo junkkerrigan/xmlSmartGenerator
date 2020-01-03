@@ -1,0 +1,45 @@
+/*
+created by Andreas Storm
+source: his article https://dribbble.com/shots/4647673-Material-Design-Radio-Buttons
+*/
+
+.generation-option.check-option {
+    position: relative;
+    cursor: pointer;
+    line-height: 20px;
+    font-size: 14px;
+    margin: 15px;
+}
+.generation-option.check-option .generation-option-button {
+    position: relative;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    -webkit-tap-highlight-color: transparent;
+}
+.generation-option.check-option .generation-option-button:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: #fff;
+    transform: scale(0);
+    transition: all 0.2s ease;
+    opacity: 0.08;
+    pointer-events: none;
+}
+input[type="checkbox"]:checked + .generation-option-button {
+    border-color: #fff;
+}
+input[type="checkbox"]:checked + .generation-option-button:after {
+    transform: scale(1);
+    transition: all 0.2s cubic-bezier(0.35, 0.9, 0.4, 0.9);
+    opacity: 1;
+}

@@ -1,11 +1,16 @@
-.generation-option {
+/*
+created by Andreas Storm
+source: his article https://dribbble.com/shots/4647673-Material-Design-Radio-Buttons
+*/
+
+.generation-option.radio-option {
   position: relative;
   cursor: pointer;
   line-height: 20px;
   font-size: 14px;
   margin: 15px;
 }
-.generation-option .generation-option-button {
+.generation-option.radio-option .generation-option-button {
   position: relative;
   display: block;
   float: left;
@@ -16,7 +21,7 @@
   border-radius: 100%;
   -webkit-tap-highlight-color: transparent;
 }
-.generation-option .generation-option-button:after {
+.generation-option.radio-option .generation-option-button:after {
   content: '';
   position: absolute;
   top: 3px;
@@ -30,9 +35,6 @@
   opacity: 0.08;
   pointer-events: none;
 }
-.generation-option:hover .generation-option-button:after {
-  transform: scale(3.6);
-}
 input[type="radio"]:checked + .generation-option-button {
   border-color: white;
 }
@@ -40,14 +42,4 @@ input[type="radio"]:checked + .generation-option-button:after {
   transform: scale(1);
   transition: all 0.2s cubic-bezier(0.35, 0.9, 0.4, 0.9);
   opacity: 1;
-}
-.cntr {
-  position: absolute;
-  top: calc(50% - 10px);
-  left: 0;
-  width: 100%;
-  button-align: center;
-}
-.hidden {
-  display: none;
 }

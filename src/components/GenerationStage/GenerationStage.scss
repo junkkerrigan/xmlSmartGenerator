@@ -72,6 +72,7 @@
         border: none;
         resize: unset;
         @include text(500, 18px, $_dark_gray);
+        @include custom-scrollbar();
       }
     }
   }

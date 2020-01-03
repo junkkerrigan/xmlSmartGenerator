@@ -14,4 +14,10 @@ button, input, textarea {
   }
 }
 
+* {
+  &:hover, &:active, &:focus {
+    outline: none;
+  }
+}
+
 

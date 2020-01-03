@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CarouselProvider, Slider } from 'pure-react-carousel'
 import { GenerationStage, GenerationStageCaption,
-	GenerationOptionRadio, GenerationPattern } from "../GenerationStage";
+	GenerationRadioOption, GenerationPattern, GenerationCheckOption } from "../GenerationStage";
 import { useUIDSeed } from "react-uid";
 
 import { GeneratorProps } from './types';
@@ -27,18 +27,19 @@ export const Generator: React.FC<GeneratorProps> = () => {
 					<GenerationStageCaption>
 						Choose source for your XML
 					</GenerationStageCaption>
-					<GenerationOptionRadio
+					<GenerationRadioOption
 						name='source'
 						value='random'
+						checked
 					>
 						Generate random document
-					</GenerationOptionRadio>
-					<GenerationOptionRadio
+					</GenerationRadioOption>
+					<GenerationRadioOption
 						name='source'
 						value='pattern'
 					>
 						Specify the pattern
-					</GenerationOptionRadio>
+					</GenerationRadioOption>
 				</GenerationStage>
 				<GenerationStage
 					index={1}
@@ -53,7 +54,19 @@ export const Generator: React.FC<GeneratorProps> = () => {
 					index={2}
 					type='final'
 				>
-					Third... here:(
+					<GenerationStageCaption>
+						Additional settings
+					</GenerationStageCaption>
+					<GenerationCheckOption
+						value='1'
+					>
+						1sadasdsadasdas
+					</GenerationCheckOption>
+					<GenerationCheckOption
+						value='2'
+					>
+						2jhgfdfghjkdasdas
+					</GenerationCheckOption>
 				</GenerationStage>
 			</Slider>
 		</CarouselProvider>
