@@ -1,1 +1,1 @@
-export * from './GenerationStageContext';
+export * from './CarouselSlideIndexContext';

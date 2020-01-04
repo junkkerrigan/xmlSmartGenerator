@@ -1,17 +1,11 @@
-import React, { useState } from "react";
+import React, { FC } from "react";
 import { CarouselProvider, Slider } from 'pure-react-carousel'
 import { GenerationStage, GenerationStageCaption,
-	GenerationRadioOption, GenerationPattern, GenerationCheckOption } from "../GenerationStage";
-import { useUIDSeed } from "react-uid";
-
-import { GeneratorProps } from './types';
+	GenerationRadioOption, GenerationPattern, GenerationCheckOption } from "./components";
 
 import './Generator.scss';
 
-export const Generator: React.FC<GeneratorProps> = () => {
-	const [ currentSlide, setCurrentSlide ] = useState<number>(0);
-	const seed = useUIDSeed();
-
+export const Generator: FC = () => {
 	return (
 		<CarouselProvider
 			naturalSlideWidth={100}
@@ -21,29 +15,9 @@ export const Generator: React.FC<GeneratorProps> = () => {
 		>
 			<Slider>
 				<GenerationStage
-					index={0}
-					type='first'
-				>
-					<GenerationStageCaption>
-						Choose source for your XML
-					</GenerationStageCaption>
-					<GenerationRadioOption
-						name='source'
-						value='random'
-						checked
-					>
-						Generate random document
-					</GenerationRadioOption>
-					<GenerationRadioOption
-						name='source'
-						value='pattern'
-					>
-						Specify the pattern
-					</GenerationRadioOption>
-				</GenerationStage>
-				<GenerationStage
 					index={1}
 					type='regular'
+					next='a'
 				>
 					<GenerationStageCaption>
 						Provide the pattern for your document
@@ -53,17 +27,20 @@ export const Generator: React.FC<GeneratorProps> = () => {
 				<GenerationStage
 					index={2}
 					type='final'
+					next='b'
 				>
 					<GenerationStageCaption>
 						Additional settings
 					</GenerationStageCaption>
 					<GenerationCheckOption
 						value='1'
+						onCheck={() => {}}
 					>
 						1sadasdsadasdas
 					</GenerationCheckOption>
 					<GenerationCheckOption
 						value='2'
+						onCheck={() => {}}
 					>
 						2jhgfdfghjkdasdas
 					</GenerationCheckOption>

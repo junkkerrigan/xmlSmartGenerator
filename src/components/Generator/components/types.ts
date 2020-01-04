@@ -1,9 +1,10 @@
-import { ReactNode } from "react";
+import { ChangeEvent, ReactNode } from "react";
 
 interface GenerationOptionProps {
-	checked?: boolean,
+	defaultChecked?: boolean,
 	value: string,
 	children: ReactNode,
+	onCheck: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export interface GenerationRadioOptionProps extends GenerationOptionProps {
