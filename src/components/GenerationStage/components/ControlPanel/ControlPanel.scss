@@ -1,0 +1,36 @@
+.carousel {
+  &__next-button {
+    padding: 3px 15px 3px 25px;
+  }
+
+  &__back-button {
+    padding: 3px 25px 3px 15px;
+    margin-right: 10px;
+  }
+
+  .generate-btn {
+    padding: 3px 10px 3px 15px;
+
+    svg {
+      position: relative;
+      top: -3px;
+      right: -2px;
+    }
+  }
+
+  &-control {
+    &-panel {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%);
+    }
+
+    &-btn {
+      background: transparent;
+      border-radius: 5px;
+      border: 2px solid white;
+      @include text(500, 17px, white);
+    }
+  }
+}

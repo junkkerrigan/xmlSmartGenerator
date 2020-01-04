@@ -1,5 +1,7 @@
 import React, { ChangeEvent, FC, useRef, useState } from "react";
 
+import './GenerationPattern.scss';
+
 export const GenerationPattern: FC = () => {
 	const [ textareaValue, setTextareaValue ] = useState<string>('');
 	const textareaRef = useRef<HTMLTextAreaElement>(null);

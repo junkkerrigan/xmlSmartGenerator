@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Slide } from "pure-react-carousel";
-import { ControlButtonsPanel } from "./components";
+import { ControlPanel } from "./components";
 
 import { GenerationStageContext } from "../../contexts";
 import { GenerationStageProps } from './types';
@@ -17,7 +17,7 @@ export const GenerationStage: FC<GenerationStageProps> = (props: GenerationStage
 				innerClassName='disable-outline'
 			>
 				{children}
-				<ControlButtonsPanel
+				<ControlPanel
 					prev={type !== 'first'}
 					next={type !== 'final'}
 					generate={type === 'final'}

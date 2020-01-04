@@ -1,15 +1,5 @@
 import { ReactNode } from "react";
 
-export interface ControlButtonsPanelProps {
-	next?: boolean,
-	prev?: boolean,
-	generate?: boolean
-}
-
-export interface ControlButtonProps {
-	type: 'next' | 'prev' | 'generate',
-}
-
 interface GenerationOptionProps {
 	checked?: boolean,
 	value: string,

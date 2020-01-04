@@ -1,0 +1,17 @@
+.carousel {
+  .generation-pattern {
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px auto 0;
+
+    &-input {
+      @include size(380px, 200px);
+      background: white;
+      border: none;
+      resize: unset;
+      @include text(500, 18px, $_dark_gray);
+      @include custom-scrollbar();
+    }
+  }
+}

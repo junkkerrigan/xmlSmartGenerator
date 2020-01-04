@@ -1,7 +1,7 @@
-export * from './ControlButtonsPanel';
+export * from './ControlPanel';
 export * from './GenerationRadioOption';
 export * from './GenerationStageCaption';
 export * from './GenerationPattern';
-export * from './GenrationCheckOption';
+export * from './GenerationCheckOption';
 export * from './types';
 
