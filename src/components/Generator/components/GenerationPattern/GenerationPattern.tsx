@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FC, useRef, useState } from "react";
-
 import { defaultPattern } from "./defaultPattern";
 
 import './GenerationPattern.scss';

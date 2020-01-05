@@ -1,6 +1,10 @@
 import React, { createContext } from "react";
+import { GenerationStagesListState } from './types';
 
-const defaultValue: Array<string> = ['source'];
+const defaultValue: GenerationStagesListState = {
+	stagesList: [],
+	setStagesList: () => {}
+};
 
 export const GenerationStagesListContext
-	= createContext<Array<string>>(defaultValue);
+	= createContext<GenerationStagesListState>(defaultValue);

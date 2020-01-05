@@ -1,29 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { CarouselProvider, Slider } from 'pure-react-carousel'
 import { GenerationStage, GenerationStageCaption,
 	GenerationRadioOption, GenerationPattern, GenerationCheckOption } from "./components";
+import { GenerationStagesListProvider, GenerationStagesListContext } from '../../contexts';
+
+import { GenerationStagesListState } from '../../contexts';
 
 import './Generator.scss';
 
-export const Generator: FC = () => {
+const Generator: FC = () => {
+	const { stagesList } = useContext<GenerationStagesListState>(GenerationStagesListContext);
+
 	return (
 		<CarouselProvider
 			naturalSlideWidth={100}
 			naturalSlideHeight={125}
-			totalSlides={3}
+			totalSlides={stagesList.length}
 			dragEnabled={false}
 		>
 			<Slider>
-				<GenerationStage
-					index={1}
-					type='regular'
-					next='a'
-				>
-					<GenerationStageCaption>
-						Provide the pattern for your document
-					</GenerationStageCaption>
-					<GenerationPattern />
-				</GenerationStage>
+
 				<GenerationStage
 					index={2}
 					type='final'
@@ -49,3 +45,13 @@ export const Generator: FC = () => {
 		</CarouselProvider>
 	);
 };
+
+const GeneratorWithProvider: FC = () => {
+	return (
+		<GenerationStagesListProvider>
+			<Generator />
+		</GenerationStagesListProvider>
+	);
+};
+
+export { GeneratorWithProvider as Generator };

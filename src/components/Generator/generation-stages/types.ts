@@ -1,1 +1,3 @@
-export *  from '../components/types';
+import { GenerationStageProps } from '../components';
+
+export type ConcreteGenerationStageProps = Omit<GenerationStageProps, 'children'>;
