@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
+import { GenerationStageName } from "../../logic";
 
 export type GenerationStageType = 'first' | 'regular' | 'final';
 
-export type NextStage = string | null;
-
 export interface GenerationStageProps {
 	children: ReactNode,
-	next: NextStage,
+	nextStage: GenerationStageName,
 	index: number,
 	type: GenerationStageType,
 }

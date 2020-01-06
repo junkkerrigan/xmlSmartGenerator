@@ -1,11 +1,18 @@
-import React, { CSSProperties, FC, ReactElement } from "react";
+import React, { CSSProperties, FC, ReactElement, useContext } from "react";
 import { ButtonBack, ButtonNext } from "pure-react-carousel";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdCheck } from "react-icons/all";
+import { GenerationStageContext, GenerationStagesListContext } from "../../../../contexts";
 
 import { ControlButtonProps } from "./types";
+import { GenerationStageName } from "../../logic";
 
-export const ControlButton: FC<ControlButtonProps> = ({ type }: ControlButtonProps) => {
+export const ControlButton: FC<ControlButtonProps>
+	= ({ type }: ControlButtonProps) => {
+	const { setStagesList } = useContext(GenerationStagesListContext);
+	const { nextStage } = useContext(GenerationStageContext);
+
 	let btn: ReactElement;
+	let handleBtnClick: () => void;
 	const style: Partial<CSSProperties> = {
 		color: 'white',
 		fontSize: 25,
@@ -19,8 +26,16 @@ export const ControlButton: FC<ControlButtonProps> = ({ type }: ControlButtonPro
 			</button>
 		);
 	} else if (type === 'prev') {
+		handleBtnClick = () => {
+			setStagesList({
+				type: 'REMOVE'
+			})
+		};
 		btn = (
-			<ButtonBack className='carousel-control-btn'>
+			<ButtonBack
+				className='carousel-control-btn'
+				onClick={handleBtnClick}
+			>
 				<>
 					<MdKeyboardArrowLeft style={style} />
 					Prev
@@ -28,8 +43,17 @@ export const ControlButton: FC<ControlButtonProps> = ({ type }: ControlButtonPro
 			</ButtonBack>
 		);
 	} else {
+		handleBtnClick = () => {
+			setStagesList({
+				type: 'ADD',
+				stageToAdd: nextStage
+			})
+		};
 		btn = (
-			<ButtonNext className='carousel-control-btn'>
+			<ButtonNext
+				className='carousel-control-btn'
+				onClick={handleBtnClick}
+			>
 				<>
 					Next
 					<MdKeyboardArrowRight style={style} />

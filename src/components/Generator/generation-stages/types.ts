@@ -1,3 +1,7 @@
-import { GenerationStageProps } from '../components';
+import { GenerationStageType } from '../components';
 
-export type ConcreteGenerationStageProps = Omit<GenerationStageProps, 'children'>;
+export interface ConcreteGenerationStageProps {
+	index: number,
+	type: GenerationStageType
+}
+

@@ -1,21 +1,23 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import { GenerationRadioOption, GenerationStage, GenerationStageCaption } from '../components';
 
-import { NextStage } from "../components";
+import { GenerationStageName } from "../logic";
 import { ConcreteGenerationStageProps } from "./types";
 
 export const ChooseSourceStage: FC<ConcreteGenerationStageProps>
 	= (props: ConcreteGenerationStageProps) => {
-	const [ nextStage, setNextStage ] = useState<NextStage>('random');
+	const [ nextStage, setNextStage ] = useState<GenerationStageName>(
+		'additionalOptions');
 
 	const handleOptionCheck = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
-		setNextStage(value);
+		if (value === 'random') setNextStage('additionalOptions');
+		else setNextStage('specifyPattern');
 	};
 
 	return (
 		<GenerationStage
-			next={nextStage}
+			nextStage={nextStage}
 			{...props}
 		>
 			<GenerationStageCaption>

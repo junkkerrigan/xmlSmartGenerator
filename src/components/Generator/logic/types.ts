@@ -1,4 +1,6 @@
-export interface GenerationStageNode {
-	name: string,
-	next: GenerationStageNode | null,
-}
+export type GenerationStageName =
+| 'chooseSource'
+| 'specifyPattern'
+| 'additionalOptions'
+| '';
+

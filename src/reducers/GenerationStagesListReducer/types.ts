@@ -1,6 +1,10 @@
+import { Reducer } from "react";
+
+import { GenerationStageName } from "../../components/Generator/logic";
+
 export type AddStageAction = {
 	type: 'ADD',
-	stageToAdd: string,
+	stageToAdd: GenerationStageName,
 };
 export type RemoveStageAction = {
 	type: 'REMOVE',
@@ -10,4 +14,4 @@ export type GenerationStagesListAction =
 | RemoveStageAction;
 
 export type GenerationStagesListReducer =
-	(state: Array<string>, action: GenerationStagesListAction) => Array<string>
+	Reducer<Array<GenerationStageName>, GenerationStagesListAction>;

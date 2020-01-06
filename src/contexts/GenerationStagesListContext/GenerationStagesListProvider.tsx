@@ -1,10 +1,12 @@
 import React, { useReducer, FC } from "react";
 import { GenerationStagesListContext } from './GenerationStagesListContext';
-import { GenerationStagesListReducer, generationStagesListReducer } from '../../reducers';
+import { generationStagesListReducer } from '../../reducers';
+
+import { GenerationStageName } from "../../components/Generator/logic";
 
 export const GenerationStagesListProvider: FC = ({ children }) => {
-	const initialValue: Array<string> = ['source'];
-	const [ stagesList, stagesListDispatch ] = useReducer<GenerationStagesListReducer>(
+	const initialValue: Array<GenerationStageName> = ['chooseSource'];
+	const [ stagesList, stagesListDispatch ] = useReducer(
 		generationStagesListReducer, initialValue
 	);
 

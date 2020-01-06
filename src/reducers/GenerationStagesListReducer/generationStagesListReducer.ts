@@ -7,7 +7,8 @@ export const generationStagesListReducer: GenerationStagesListReducer
 			return [...state, action.stageToAdd];
 		}
 		case 'REMOVE': {
-			return state.splice(state.length - 1);
+			if (state.length === 1) return state;
+			return state.splice(0, state.length - 1);
 		}
 		default: {
 			return state;

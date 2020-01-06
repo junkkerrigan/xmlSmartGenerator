@@ -13,7 +13,3 @@ export interface GenerationRadioOptionProps extends GenerationOptionProps {
 
 export interface GenerationCheckOptionProps extends GenerationOptionProps {
 }
-
-export interface GenerationStageCaptionProps {
-	children: ReactNode,
-}

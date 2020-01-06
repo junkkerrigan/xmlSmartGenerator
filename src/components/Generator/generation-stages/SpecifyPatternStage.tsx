@@ -5,12 +5,10 @@ import { ConcreteGenerationStageProps } from "./types";
 
 export const SpecifyPatternStage: FC<ConcreteGenerationStageProps>
 	= (props: ConcreteGenerationStageProps) => {
-	const { type, index, next } = props;
 	return (
 		<GenerationStage
-			index={1}
-			type='regular'
-			next='a'
+			nextStage='additionalOptions'
+			{...props}
 		>
 			<GenerationStageCaption>
 				Provide the pattern for your document
