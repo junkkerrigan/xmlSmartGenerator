@@ -5,5 +5,5 @@ export interface ControlButtonsPanelProps {
 }
 
 export interface ControlButtonProps {
-	type: 'next' | 'prev' | 'generate',
+	btnType: 'next' | 'prev' | 'generate',
 }

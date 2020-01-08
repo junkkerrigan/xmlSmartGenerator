@@ -1,14 +1,28 @@
 import React, { FC } from "react";
-import { GenerationCheckOption, GenerationStage, GenerationStageCaption } from "../components";
+import {GenerationCheckOption, GenerationStage, GenerationStageCaption, GenerationStageProps} from "../components";
 
 import { ConcreteGenerationStageProps } from "./types";
+import {GenerationStagesListAction} from "../../../reducers/GenerationStagesListReducer";
 
 export const AdditionalOptionsStage: FC<ConcreteGenerationStageProps>
 	= (props: ConcreteGenerationStageProps) => {
+	const { index, stageType } = props;
+	const onNextClick: GenerationStagesListAction = {
+		type: 'SKIP',
+	};
+	const onPrevClick: GenerationStagesListAction = {
+		type: 'SKIP',
+	};
+	const stageProps: GenerationStageProps = {
+		index,
+		stageType,
+		onNextClick,
+		onPrevClick,
+	};
+
 	return (
 		<GenerationStage
-			nextStage=''
-			{...props}
+			{...stageProps}
 		>
 			<GenerationStageCaption>
 				Additional settings

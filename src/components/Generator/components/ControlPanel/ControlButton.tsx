@@ -1,15 +1,14 @@
-import React, { CSSProperties, FC, ReactElement, useContext } from "react";
-import { ButtonBack, ButtonNext } from "pure-react-carousel";
+import React, {Component, CSSProperties, FC, ReactElement, ReactNode, useContext} from "react";
+import {ButtonBack, ButtonNext, CarouselInjectedProps, WithStore} from "pure-react-carousel";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdCheck } from "react-icons/all";
 import { GenerationStageContext, GenerationStagesListContext } from "../../../../contexts";
 
 import { ControlButtonProps } from "./types";
-import { GenerationStageName } from "../../logic";
 
-export const ControlButton: FC<ControlButtonProps>
-	= ({ type }: ControlButtonProps) => {
+const ControlButton: FC<ControlButtonProps & CarouselInjectedProps>
+	= ({ btnType, carouselStore }) => {
 	const { setStagesList } = useContext(GenerationStagesListContext);
-	const { nextStage } = useContext(GenerationStageContext);
+	const { onNextClick, onPrevClick } = useContext(GenerationStageContext);
 
 	let btn: ReactElement;
 	let handleBtnClick: () => void;
@@ -18,18 +17,19 @@ export const ControlButton: FC<ControlButtonProps>
 		fontSize: 25,
 	};
 
-	if (type === 'generate') {
+	if (btnType === 'generate') {
 		btn = (
 			<button className='carousel-control-btn generate-btn'>
 				Generate
 				<MdCheck style={style} />
 			</button>
 		);
-	} else if (type === 'prev') {
+	} else if (btnType === 'prev') {
 		handleBtnClick = () => {
 			setStagesList({
-				type: 'REMOVE'
-			})
+				carouselStore,
+				...onPrevClick
+			});
 		};
 		btn = (
 			<ButtonBack
@@ -45,9 +45,9 @@ export const ControlButton: FC<ControlButtonProps>
 	} else {
 		handleBtnClick = () => {
 			setStagesList({
-				type: 'ADD',
-				stageToAdd: nextStage
-			})
+				carouselStore,
+				...onNextClick
+			});
 		};
 		btn = (
 			<ButtonNext
@@ -64,3 +64,17 @@ export const ControlButton: FC<ControlButtonProps>
 
 	return btn;
 };
+
+class ControlButtonClass extends Component<
+	ControlButtonProps & CarouselInjectedProps
+	> {
+	public render(): ReactNode {
+		return (
+			<ControlButton {...this.props} />
+		)
+	}
+}
+
+const ControlButtonWithStore = WithStore(ControlButtonClass);
+
+export { ControlButtonWithStore as ControlButton };

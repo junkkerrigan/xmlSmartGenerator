@@ -10,10 +10,11 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 import './GenerationStage.scss';
 
 export const GenerationStage: FC<GenerationStageProps> = (props: GenerationStageProps) => {
-	const { children, index, type, nextStage } = props;
+	const { children, index, stageType, ...otherProps } = props;
 	const providerValue: GenerationStageData  = {
 		index,
-		nextStage
+		stageType,
+		...otherProps
 	};
 
 	return (
@@ -24,9 +25,9 @@ export const GenerationStage: FC<GenerationStageProps> = (props: GenerationStage
 			>
 				{children}
 				<ControlPanel
-					prev={type !== 'first'}
-					next={type !== 'final'}
-					generate={type === 'final'}
+					prev={stageType !== 'first'}
+					next={stageType !== 'final'}
+					generate={stageType === 'final'}
 				/>
 			</Slide>
 		</GenerationStageContext.Provider>

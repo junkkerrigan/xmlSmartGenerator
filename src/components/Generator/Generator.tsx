@@ -1,73 +1,70 @@
-import React, { FC, useContext } from "react";
-import { CarouselProvider, Slider } from 'pure-react-carousel'
-import { useUIDSeed } from 'react-uid';
+import React, {FC, useContext, Component, ReactNode, useReducer} from "react";
+import {CarouselProvider, Slider, WithStore} from 'pure-react-carousel'
+import {UID, useUIDSeed} from 'react-uid';
 import { GenerationStagesListProvider, GenerationStagesListContext } from '../../contexts';
-import { getStageByName } from "./logic";
+import {GenerationStageName, getStageByName, initialStagesList} from "./logic";
 
+import { CarouselInjectedProps } from "pure-react-carousel";
 import { ConcreteGenerationStageProps } from "./generation-stages";
 import { GenerationStageType } from "./components";
 
 import './Generator.scss';
+import {generationStagesListReducer} from "../../reducers/GenerationStagesListReducer";
+
+const GeneratorSlider: FC = () => {
+	const seed = useUIDSeed();
+	const { stagesList } = useContext(GenerationStagesListContext);
+
+	return (
+		<Slider>
+			{
+				stagesList.map((value, index) => {
+					const Stage = getStageByName(value);
+					let stageType: GenerationStageType;
+					if (index === 0) {
+						stageType = 'first';
+					} else if (index === stagesList.length - 1) {
+						stageType = 'final';
+					} else {
+						stageType = 'regular';
+					}
+					const props: ConcreteGenerationStageProps = {
+						index,
+						stageType,
+					};
+					return (
+						<Stage
+							{...props}
+							key={seed(Stage)}
+						/>
+					);
+				})
+			}
+		</Slider>
+	)
+};
 
 const Generator: FC = () => {
-	const { stagesList } = useContext(GenerationStagesListContext);
-	const seed = useUIDSeed();
+	const [ stagesList, stagesListDispatch ] = useReducer(
+		generationStagesListReducer, initialStagesList
+	);
 	return (
-		<CarouselProvider
-			naturalSlideWidth={100}
-			naturalSlideHeight={125}
-			// change slides number in smart way
-			// change state with HOC
-			totalSlides={stagesList.length + 1}
-			dragEnabled={false}
+		<GenerationStagesListContext.Provider
+			value={{
+				stagesList: stagesList,
+				setStagesList: stagesListDispatch
+			}}
 		>
-			<Slider>
-				{
-					stagesList.map((value, index) => {
-						const Stage = getStageByName(value);
-						let type: GenerationStageType;
-						if (index === 0) {
-							type = 'first';
-						} else if (index === stagesList.length - 1) {
-							type = 'final';
-						} else {
-							type = 'regular';
-						}
-						const props: ConcreteGenerationStageProps = {
-							index,
-							type
-						};
-						return (
-							<Stage
-								{...props}
-								key={seed(Stage)}
-							/>
-						);
-					})
-				}
-				{/*<ChooseSourceStage*/}
-				{/*	index={0}*/}
-				{/*	type='first'*/}
-				{/*/>*/}
-				{/*<SpecifyPatternStage*/}
-				{/*	index={1}*/}
-				{/*	type='regular'*/}
-				{/*/>*/}
-				{/*<AdditionalOptionsStage*/}
-				{/*	index={2}*/}
-				{/*	type='regular'*/}
-				{/*/>*/}
-			</Slider>
-		</CarouselProvider>
+			<CarouselProvider
+				naturalSlideWidth={100}
+				naturalSlideHeight={125}
+				totalSlides={stagesList.length}
+				dragEnabled={false}
+			>
+				<GeneratorSlider />
+			</CarouselProvider>
+		</GenerationStagesListContext.Provider>
 	);
 };
 
-const GeneratorWithProvider: FC = () => {
-	return (
-		<GenerationStagesListProvider>
-			<Generator />
-		</GenerationStagesListProvider>
-	);
-};
-
-export { GeneratorWithProvider as Generator };
+export { Generator };

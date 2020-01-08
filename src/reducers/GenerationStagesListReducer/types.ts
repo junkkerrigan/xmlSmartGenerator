@@ -1,17 +1,22 @@
 import { Reducer } from "react";
-
 import { GenerationStageName } from "../../components/Generator/logic";
+import {CarouselInjectedProps} from "pure-react-carousel";
 
-export type AddStageAction = {
-	type: 'ADD',
-	stageToAdd: GenerationStageName,
-};
-export type RemoveStageAction = {
-	type: 'REMOVE',
-}
 export type GenerationStagesListAction =
-| AddStageAction
-| RemoveStageAction;
+  |	{
+		type: 'INSERT' | 'REPLACE',
+		index: number,
+		stageName: GenerationStageName,
+	}
+  | {
+		type: 'REMOVE',
+		index: number
+	}
+  | {
+		type: 'SKIP',
+	};
 
-export type GenerationStagesListReducer =
-	Reducer<Array<GenerationStageName>, GenerationStagesListAction>;
+export type GenerationStagesListReducer = Reducer<
+	Array<GenerationStageName>,
+	GenerationStagesListAction & Pick<CarouselInjectedProps, 'carouselStore'>
+>;
