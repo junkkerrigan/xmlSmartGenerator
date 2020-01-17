@@ -1,4 +1,4 @@
-export interface ControlButtonsPanelProps {
+export interface ControlPanelProps {
 	next?: boolean,
 	prev?: boolean,
 	generate?: boolean

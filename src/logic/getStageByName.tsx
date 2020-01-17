@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { ChooseSourceStage, SpecifyPatternStage,
-	AdditionalOptionsStage} from '../generation-stages';
+	AdditionalOptionsStage} from '../components/Generator/generation-stages';
 
-import { ConcreteGenerationStageProps } from '../generation-stages';
+import { ConcreteGenerationStageProps } from '../components/Generator/generation-stages';
 import { GenerationStageName } from "./types";
 
 let generationStagesDictionary:

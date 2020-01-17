@@ -1,70 +1,54 @@
-import React, {FC, useContext, Component, ReactNode, useReducer} from "react";
-import {CarouselProvider, Slider, WithStore} from 'pure-react-carousel'
-import {UID, useUIDSeed} from 'react-uid';
-import { GenerationStagesListProvider, GenerationStagesListContext } from '../../contexts';
-import {GenerationStageName, getStageByName, initialStagesList} from "./logic";
+import React, { FC } from "react";
+import { CarouselProvider, Slider } from 'pure-react-carousel'
+import { observer } from "mobx-react";
+import { useUIDSeed } from 'react-uid';
+import { getStageByName } from "../../logic";
+import { generatorStore } from '../../store/index';
 
-import { CarouselInjectedProps } from "pure-react-carousel";
 import { ConcreteGenerationStageProps } from "./generation-stages";
 import { GenerationStageType } from "./components";
 
 import './Generator.scss';
-import {generationStagesListReducer} from "../../reducers/GenerationStagesListReducer";
 
-const GeneratorSlider: FC = () => {
+export const Generator: FC = observer((props) => {
 	const seed = useUIDSeed();
-	const { stagesList } = useContext(GenerationStagesListContext);
 
+	const { stagesList } = generatorStore;
 	return (
-		<Slider>
-			{
-				stagesList.map((value, index) => {
-					const Stage = getStageByName(value);
-					let stageType: GenerationStageType;
-					if (index === 0) {
-						stageType = 'first';
-					} else if (index === stagesList.length - 1) {
-						stageType = 'final';
-					} else {
-						stageType = 'regular';
-					}
-					const props: ConcreteGenerationStageProps = {
-						index,
-						stageType,
-					};
-					return (
-						<Stage
-							{...props}
-							key={seed(Stage)}
-						/>
-					);
-				})
-			}
-		</Slider>
-	)
-};
-
-const Generator: FC = () => {
-	const [ stagesList, stagesListDispatch ] = useReducer(
-		generationStagesListReducer, initialStagesList
-	);
-	return (
-		<GenerationStagesListContext.Provider
-			value={{
-				stagesList: stagesList,
-				setStagesList: stagesListDispatch
-			}}
+		<CarouselProvider
+			naturalSlideWidth={100}
+			naturalSlideHeight={125}
+			totalSlides={stagesList.length}
+			dragEnabled={false}
+			disableKeyboard={true}
 		>
-			<CarouselProvider
-				naturalSlideWidth={100}
-				naturalSlideHeight={125}
-				totalSlides={stagesList.length}
-				dragEnabled={false}
-			>
-				<GeneratorSlider />
-			</CarouselProvider>
-		</GenerationStagesListContext.Provider>
-	);
-};
+			<Slider>
+				{
+					stagesList.map((value, index) => {
+						const Stage = getStageByName(value);
+						let stageType: GenerationStageType;
+						if (index === 0) {
+							stageType = 'first';
+						} else if (index === stagesList.length - 1) {
+							stageType = 'final';
+						} else {
+							stageType = 'regular';
+						}
+						const props: ConcreteGenerationStageProps = {
+							index,
+							stageType,
+						};
+						return (
+							<Stage
+								{...props}
+								key={seed(Stage)}
+							/>
+						);
+					})
+				}
+			</Slider>
+		</CarouselProvider>
 
-export { Generator };
+	)
+});
+

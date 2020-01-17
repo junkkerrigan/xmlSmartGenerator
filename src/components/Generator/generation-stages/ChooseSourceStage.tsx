@@ -1,53 +1,54 @@
-import React, {ChangeEvent, FC, useContext, useState} from "react";
+import React, { ChangeEvent, FC } from "react";
 import {
-	GenerationRadioOption,
-	GenerationStage,
-	GenerationStageCaption,
-	GenerationStageProps,
-	GenerationStageType
+	GenerationRadioOption, GenerationStage, GenerationStageCaption, GenerationStageProps,
 } from '../components';
+import { generatorStore } from '../../../store';
 
-import { GenerationStageName } from "../logic";
 import { ConcreteGenerationStageProps } from "./types";
-import {GenerationStagesListContext} from "../../../contexts/GenerationStagesListContext";
-import {GenerationStagesListAction} from "../../../reducers/GenerationStagesListReducer";
+import { ChooseSourceDependencies } from "../../../logic";
 
 export const ChooseSourceStage: FC<ConcreteGenerationStageProps>
 	= (props: ConcreteGenerationStageProps) => {
-	const [ nextStage, setNextStage ] = useState<GenerationStageName>(
-		'additionalOptions');
+	const { index } = props;
 	const handleOptionCheck = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
-		if (value === 'random') setNextStage('additionalOptions');
-		else setNextStage('specifyPattern');
+		if (value === 'random') {
+			generatorStore.dependencies[index] = {
+				source: 'random'
+ 			} as ChooseSourceDependencies;
+		} else {
+			generatorStore.dependencies[index] = {
+				source: 'pattern'
+			} as ChooseSourceDependencies;
+		}
 	};
 
-	const { index, stageType } = props;
-	let onNextClick: GenerationStagesListAction;
-	if (nextStage === 'additionalOptions') {
-		onNextClick = {
-			type: 'SKIP'
-		};
-	} else {
-		onNextClick = {
-			type: 'INSERT',
-			stageName: nextStage,
-			index: index + 1,
-		};
-	}
-	const onPrevClick: GenerationStagesListAction = {
-		type: 'SKIP',
+	const generationStageProps: GenerationStageProps = {
+		onTransition: {
+			toPrev: (carouselStore) => {
+				generatorStore.handleStageChange(
+					'prev',
+				);
+				carouselStore.setStoreState({
+					totalSlides: generatorStore.stagesList.length,
+					currentSlide: generatorStore.currentStageIdx,
+				})
+			},
+			toNext: (carouselStore) => {
+				generatorStore.handleStageChange(
+					'next',
+				);
+				carouselStore.setStoreState({
+					totalSlides: generatorStore.stagesList.length,
+					currentSlide: generatorStore.currentStageIdx
+				})
+			}
+		},
+		...props
 	};
-	const stageProps: GenerationStageProps = {
-		index,
-		stageType,
-		onNextClick,
-		onPrevClick,
-	};
-
 	return (
 		<GenerationStage
-			{...stageProps}
+			{...generationStageProps}
 		>
 			<GenerationStageCaption>
 				Choose source for your XML

@@ -1,29 +1,43 @@
 import React, { FC } from "react";
-import {GenerationPattern, GenerationStage, GenerationStageCaption, GenerationStageProps} from "../components";
+import {
+	GenerationPattern, GenerationStage, GenerationStageCaption,
+	GenerationStageProps
+} from "../components";
+import { generatorStore } from "../../../store/GeneratorStore";
 
 import { ConcreteGenerationStageProps } from "./types";
-import {GenerationStagesListAction} from "../../../reducers/GenerationStagesListReducer";
 
 export const SpecifyPatternStage: FC<ConcreteGenerationStageProps>
 	= (props: ConcreteGenerationStageProps) => {
-	const { index, stageType } = props;
-	const onNextClick: GenerationStagesListAction = {
-		type: 'SKIP',
+	const generationStageProps: GenerationStageProps = {
+		onTransition: {
+			toPrev: {
+				callback: (carouselStore) => {
+					generatorStore.handleStageChange(
+						'prev',
+					);
+					carouselStore.setStoreState({
+						totalSlides: generatorStore.stagesList.length,
+						currentSlide: generatorStore.currentStageIdx,
+					})
+				},
+				isDelayNeeded: true
+			},
+			toNext: (carouselStore) => {
+				generatorStore.handleStageChange(
+					'next',
+				);
+				carouselStore.setStoreState({
+					totalSlides: generatorStore.stagesList.length,
+					currentSlide: generatorStore.currentStageIdx,
+				})
+			}
+		},
+		...props
 	};
-	const onPrevClick: GenerationStagesListAction = {
-		type: 'REMOVE',
-		index,
-	};
-	const stageProps: GenerationStageProps = {
-		index,
-		stageType,
-		onNextClick,
-		onPrevClick,
-	};
-
 	return (
 		<GenerationStage
-			{...stageProps}
+			{...generationStageProps}
 		>
 			<GenerationStageCaption>
 				Provide the pattern for your document

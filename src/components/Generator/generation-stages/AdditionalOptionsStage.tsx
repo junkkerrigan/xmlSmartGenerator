@@ -1,28 +1,40 @@
 import React, { FC } from "react";
-import {GenerationCheckOption, GenerationStage, GenerationStageCaption, GenerationStageProps} from "../components";
+import {
+	GenerationCheckOption, GenerationStage, GenerationStageCaption,
+	GenerationStageProps
+} from "../components";
+import { generatorStore } from "../../../store/GeneratorStore";
 
 import { ConcreteGenerationStageProps } from "./types";
-import {GenerationStagesListAction} from "../../../reducers/GenerationStagesListReducer";
 
 export const AdditionalOptionsStage: FC<ConcreteGenerationStageProps>
 	= (props: ConcreteGenerationStageProps) => {
-	const { index, stageType } = props;
-	const onNextClick: GenerationStagesListAction = {
-		type: 'SKIP',
+	const generationStageProps: GenerationStageProps = {
+		onTransition: {
+			toPrev: (carouselStore) => {
+				generatorStore.handleStageChange(
+					'prev',
+				);
+				carouselStore.setStoreState({
+					totalSlides: generatorStore.stagesList.length,
+					currentSlide: generatorStore.currentStageIdx,
+				})
+			},
+			toNext: (carouselStore) => {
+				generatorStore.handleStageChange(
+					'next',
+				);
+				carouselStore.setStoreState({
+					totalSlides: generatorStore.stagesList.length,
+					currentSlide: generatorStore.currentStageIdx,
+				})
+			}
+		},
+		...props
 	};
-	const onPrevClick: GenerationStagesListAction = {
-		type: 'SKIP',
-	};
-	const stageProps: GenerationStageProps = {
-		index,
-		stageType,
-		onNextClick,
-		onPrevClick,
-	};
-
 	return (
 		<GenerationStage
-			{...stageProps}
+			{...generationStageProps}
 		>
 			<GenerationStageCaption>
 				Additional settings

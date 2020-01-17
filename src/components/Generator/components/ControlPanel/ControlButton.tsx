@@ -1,22 +1,24 @@
-import React, {Component, CSSProperties, FC, ReactElement, ReactNode, useContext} from "react";
-import {ButtonBack, ButtonNext, CarouselInjectedProps, WithStore} from "pure-react-carousel";
+import React, { CSSProperties, FC, ReactElement, useContext } from "react";
+import {ButtonBack, ButtonNext } from "pure-react-carousel";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdCheck } from "react-icons/all";
-import { GenerationStageContext, GenerationStagesListContext } from "../../../../contexts";
 
 import { ControlButtonProps } from "./types";
+import {GenerationStageContext} from "../../../../contexts/GenerationStageContext";
 
-const ControlButton: FC<ControlButtonProps & CarouselInjectedProps>
-	= ({ btnType, carouselStore }) => {
-	const { setStagesList } = useContext(GenerationStagesListContext);
-	const { onNextClick, onPrevClick } = useContext(GenerationStageContext);
-
+export const ControlButton:  FC<ControlButtonProps>
+	= (props) => {
+	const { btnType } = props;
 	let btn: ReactElement;
-	let handleBtnClick: () => void;
 	const style: Partial<CSSProperties> = {
 		color: 'white',
 		fontSize: 25,
 	};
 
+	const {
+		onTransition: {
+			toNext, toPrev
+		}
+	} = useContext(GenerationStageContext);
 	if (btnType === 'generate') {
 		btn = (
 			<button className='carousel-control-btn generate-btn'>
@@ -25,16 +27,10 @@ const ControlButton: FC<ControlButtonProps & CarouselInjectedProps>
 			</button>
 		);
 	} else if (btnType === 'prev') {
-		handleBtnClick = () => {
-			setStagesList({
-				carouselStore,
-				...onPrevClick
-			});
-		};
 		btn = (
 			<ButtonBack
 				className='carousel-control-btn'
-				onClick={handleBtnClick}
+				onClick={toPrev}
 			>
 				<>
 					<MdKeyboardArrowLeft style={style} />
@@ -43,16 +39,10 @@ const ControlButton: FC<ControlButtonProps & CarouselInjectedProps>
 			</ButtonBack>
 		);
 	} else {
-		handleBtnClick = () => {
-			setStagesList({
-				carouselStore,
-				...onNextClick
-			});
-		};
 		btn = (
 			<ButtonNext
 				className='carousel-control-btn'
-				onClick={handleBtnClick}
+				onClick={toNext}
 			>
 				<>
 					Next
@@ -64,17 +54,3 @@ const ControlButton: FC<ControlButtonProps & CarouselInjectedProps>
 
 	return btn;
 };
-
-class ControlButtonClass extends Component<
-	ControlButtonProps & CarouselInjectedProps
-	> {
-	public render(): ReactNode {
-		return (
-			<ControlButton {...this.props} />
-		)
-	}
-}
-
-const ControlButtonWithStore = WithStore(ControlButtonClass);
-
-export { ControlButtonWithStore as ControlButton };

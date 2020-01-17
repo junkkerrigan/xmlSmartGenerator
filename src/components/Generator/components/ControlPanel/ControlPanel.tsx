@@ -1,12 +1,13 @@
 import React, { FC } from "react";
 import { ControlButton } from './ControlButton';
 
-import { ControlButtonsPanelProps } from "./types";
+import { ControlPanelProps } from "./types";
 
 import './ControlPanel.scss';
 
-export const ControlPanel: FC<ControlButtonsPanelProps> = (props: ControlButtonsPanelProps) => {
+export const ControlPanel: FC<ControlPanelProps> = (props) => {
 	const { generate, next, prev } = props;
+
 	return (
 		<div className='carousel-control-panel'>
 			{prev && <ControlButton btnType='prev' />}
@@ -15,3 +16,4 @@ export const ControlPanel: FC<ControlButtonsPanelProps> = (props: ControlButtons
 		</div>
 	);
 };
+

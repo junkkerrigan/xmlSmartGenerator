@@ -36,7 +36,8 @@
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
 		"forceConsistentCasingInFileNames": true,
-		"importHelpers": true
+		"importHelpers": true,
+		"experimentalDecorators": true
 	},
 	"exclude": [
 		"node_modules"
