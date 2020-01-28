@@ -22,7 +22,6 @@ export const stagesTransitionResponses: {
 				let newStagesList = Array.from(stagesList);
 				newStagesList.splice(currentStageIdx + 1, 0,
 					'specifyPattern');
-				console.log(newStagesList);
 				return {
 					stagesList: newStagesList,
 					currentStageIdx: currentStageIdx + 1,

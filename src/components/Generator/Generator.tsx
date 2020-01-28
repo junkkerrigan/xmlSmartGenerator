@@ -16,8 +16,8 @@ export const Generator: FC = observer((props) => {
 	const { stagesList } = generatorStore;
 	return (
 		<CarouselProvider
-			naturalSlideWidth={100}
-			naturalSlideHeight={125}
+			naturalSlideWidth={3}
+			naturalSlideHeight={2}
 			totalSlides={stagesList.length}
 			dragEnabled={false}
 			disableKeyboard={true}

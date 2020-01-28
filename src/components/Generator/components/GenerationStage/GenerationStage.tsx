@@ -41,7 +41,6 @@ class GenerationStage extends Component<
 				}
 			}
 		};
-		console.log(index);
 		return (
 			<GenerationStageContext.Provider value={providerValue}>
 				<Slide

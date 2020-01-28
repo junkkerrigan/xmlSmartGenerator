@@ -59,14 +59,14 @@ export const ChooseSourceStage: FC<ConcreteGenerationStageProps>
 				defaultChecked
 				onCheck={handleOptionCheck}
 			>
-				Generate random document
+				generate random document
 			</GenerationRadioOption>
 			<GenerationRadioOption
 				name='source'
 				value='pattern'
 				onCheck={handleOptionCheck}
 			>
-				Specify the pattern
+				specify the pattern
 			</GenerationRadioOption>
 		</GenerationStage>
 	)

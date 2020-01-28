@@ -11,10 +11,6 @@
   }
 
   .carousel {
-    @include size(600px, 400px);
-
-    &__slider {
-      @include size(100%);
-    }
+    width: 600px;
   }
 }

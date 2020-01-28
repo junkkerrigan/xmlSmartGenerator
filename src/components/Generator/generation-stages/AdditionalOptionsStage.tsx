@@ -43,13 +43,13 @@ export const AdditionalOptionsStage: FC<ConcreteGenerationStageProps>
 				value='1'
 				onCheck={() => {}}
 			>
-				1sadasdsadasdas
+				use only existing words
 			</GenerationCheckOption>
 			<GenerationCheckOption
 				value='2'
 				onCheck={() => {}}
 			>
-				2jhgfdfghjkdasdas
+				other option
 			</GenerationCheckOption>
 		</GenerationStage>
 	)
